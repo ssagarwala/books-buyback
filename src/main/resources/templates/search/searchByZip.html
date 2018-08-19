@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<!--<a href="/book/add/{userId}">Add Book |</a>-->
+<a href="/book/add">Add Book |</a>
+<a href="/book/remove">Remove Book | </a>
+<a href="/search"> Find Books By Zip |</a>
+<a href="/user/logout/">logout</a>
+<form method="post"  style="max-width:600px;" >
+
+    <div class="form-group">
+        <label th:for="zip">Zips</label>
+        <select name="zipId">
+            <option selected th:each="zip : ${zips}"
+                    th:text="${zip.zipNumber}"
+                    th:value="${zip.id}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="keyword">Keyword</label>
+        <input class="form-control" id="keyword" type="text" value="" name="keyword"/>
+    </div>
+
+    <p th:unless="${books} and ${books.size()}"> No Books :(</p>
+
+    <table class="table">
+        <tr th:each="book : ${books}">
+            <td th:text="${book.name}">Name</td>
+            <td th:text="${book.author}">Author</td>
+            <td th:text="${book.price}">Price</td>
+            <td th:text="${book.user.username}">Book Seller</td>
+        </tr>
+    </table>
+
+
+    <input type="submit" value="Find Books" />
+
+
+</form>
+</body>
+</html>

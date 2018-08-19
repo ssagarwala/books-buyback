@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<a href="/book/add/{userId}">Add Book |</a>
+<a href="/user/logout/">logout</a>
+
+<p th:unless="${books} and ${books.size()}"> No Books :(</p>
+
+<form method="post">
+<div th:each="book : ${books}" class="checkbox">
+   <input type="checkbox" name="bookIds" th:value="${book.id}" th:id="${book.id}"/>
+    <label th:for="${book.id }" th:text="${book.name}" ></label>
+    <br />
+</div>
+
+    <input type="submit" value="Remove Book(s)" />
+</form>
+</body>
+</html>

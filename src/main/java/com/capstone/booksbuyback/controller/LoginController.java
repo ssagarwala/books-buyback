@@ -23,7 +23,7 @@ public class LoginController {
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("user/login");
         return modelAndView;
     }
 
@@ -32,8 +32,8 @@ public class LoginController {
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("registration");
+        modelAndView.addObject("templates/user", user);
+        modelAndView.setViewName("user/registration");
         return modelAndView;
     }
 
@@ -47,12 +47,12 @@ public class LoginController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("user/registration");
         } else {
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("registration");
+            modelAndView.addObject("templates/user", new User());
+            modelAndView.setViewName("user/registration");
 
         }
         return modelAndView;
@@ -65,7 +65,10 @@ public class LoginController {
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("admin/home");
+        /****changed ***/
+        //modelAndView.setViewName("admin/home");
+         modelAndView.setViewName("/book");
+
         return modelAndView;
     }
 

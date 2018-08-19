@@ -1,26 +1,18 @@
 package com.capstone.booksbuyback.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import com.capstone.booksbuyback.model.Role;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 
 @Entity
-@Table(name = "user")
+@Table(name = "templates/user")
 public class User {
 
     @Id
@@ -48,6 +40,21 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    /***ADDED LINES **/
+    @OneToOne
+    @JoinColumn(name="zip_id")
+    private Zip zip;
+
+    @OneToMany
+    @JoinColumn(name="user_id")
+    private List<Book> books = new ArrayList<>();
+
+    public List getBooks(){
+        return books;
+    }
+
+
+     /***********/
     public int getId() {
         return id;
     }
@@ -103,5 +110,8 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+    public Zip getZipcode() { return zip; }
+
+    public void setZipcode(Zip zip) {this.zip = zip;}
 
 }
