@@ -20,7 +20,7 @@
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
                 <h2>Registration Form</h2>
-                <div class="form-group">
+               <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                                class="validation-message"></label>
@@ -53,6 +53,18 @@
                             class="validation-message"></label>
                     </div>
                 </div>
+
+
+         <!--       <a href="../zip/add/">Add Zip</a>
+                <div class="form-group">
+                    <label th:for="zip">Zips</label>
+                    <select name="zipId">
+                        <option th:each="zip : ${zips}"
+                                th:text="${zip.zipNumber}"
+                                th:value="${zip.id}"></option>
+                    </select>
+                </div>
+-->
 
                 <div class="form-group">
                     <div class="col-sm-9">
