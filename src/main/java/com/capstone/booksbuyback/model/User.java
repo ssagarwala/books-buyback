@@ -1,5 +1,4 @@
 package com.capstone.booksbuyback.model;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -12,12 +11,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 
 @Entity
-@Table(name = "templates/user")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private int id;
     @Column(name = "email")
     @Email(message = "*Please provide a valid Email")
@@ -37,10 +36,9 @@ public class User {
     @Column(name = "active")
     private int active;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    /***ADDED LINES **/
     @OneToOne
     @JoinColumn(name="zip_id")
     private Zip zip;
@@ -53,8 +51,6 @@ public class User {
         return books;
     }
 
-
-     /***********/
     public int getId() {
         return id;
     }
@@ -110,8 +106,8 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-    public Zip getZipcode() { return zip; }
+    public Zip getZip() { return zip; }
 
-    public void setZipcode(Zip zip) {this.zip = zip;}
+    public void setZip(Zip zip) {this.zip = zip;}
 
 }

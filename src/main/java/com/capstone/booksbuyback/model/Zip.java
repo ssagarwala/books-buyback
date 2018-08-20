@@ -21,11 +21,10 @@ public class Zip {
     @JoinColumn(name = "zip_id")
     private List<Book> books = new ArrayList<>();
 
-    /* One Zip has many users
+
     @OneToMany
-    @JoinClumn(name="zip_id")
+    @JoinColumn(name="zip_id")
     private List<User> users = new ArrayList<>();
-     */
 
 
     public Zip(){ }

@@ -5,6 +5,7 @@ import com.capstone.booksbuyback.model.User;
 import com.capstone.booksbuyback.model.data.BookDao;
 import com.capstone.booksbuyback.model.data.UserDao;
 import com.capstone.booksbuyback.model.data.ZipDao;
+import com.capstone.booksbuyback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,11 @@ public class BooksController {
     private BookDao bookDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
+
+
+    //@Autowired
+    //private UserDao userDao;
 
     @Autowired
     private ZipDao zipDao;
@@ -40,77 +45,57 @@ public class BooksController {
     @RequestMapping("")
     public String index(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("id");
-        Optional<User> user1 = userDao.findById(userId);
-        if (user1.isPresent()) {
-            User user = user1.get();
-            Iterable<User> books = user.getBooks();
-            model.addAttribute("books", books);
-            model.addAttribute("title", "My Books");
-            return "book/index";
-        }
-        model.addAttribute("title", "Please log in your account ");
-        return "user/login";
+        //Integer userId = (Integer) session.getAttribute("id");
+        String email = (String)session.getAttribute("email");
+        User user  = userService.findUserByEmail(email);
+        Iterable<User> books = user.getBooks();
+        model.addAttribute("books", books);
+        model.addAttribute("title", "My Books");
+        return "book/index";
     }
 
-    /* @RequestMapping(value="add/{userId}", method=RequestMethod.GET
-     * public String displayAddBookForm (@PathVariable int userId,Model model){*/
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddBookForm(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-
-        Integer userId = (Integer) session.getAttribute("id");
-
-        Optional<User> user1 = userDao.findById(userId);
-        if (user1.isPresent()) {
-            User user = user1.get();
-            model.addAttribute(new Book());
-            model.addAttribute("userId", user.getId());
-            model.addAttribute("title", "Welcome" + user.getName() + "\n You can now sell books");
-            return "book/add";
-        }
-        return "redirect:";
+        String email = (String)session.getAttribute("email");
+        User user  = userService.findUserByEmail(email);
+        model.addAttribute(new Book());
+        //model.addAttribute("userId", user.getId());
+        model.addAttribute("title", "Welcome" + user.getName() + "\n You can now sell books");
+        return "book/add";
     }
 
     /* public String processAddBookForm(@ModelAttribute @Valid Book book,Errors error,@RequestParam int userId, Model model){
      */
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddBookForm(@ModelAttribute @Valid Book book, Errors error, HttpServletRequest request, Model model) {
+    public String processAddBookForm(@ModelAttribute @Valid Book book, Errors error,
+                                     HttpServletRequest request, Model model) {
         if (error.hasErrors()) {
             model.addAttribute("title", "Add Book");
             return "book/add";
         }
-        //Integer userId1= Integer.parseInt(userId);
+
         HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("id");
-        Optional<User> user1 = userDao.findById(userId);
-        if (user1.isPresent()) {
-            User user = user1.get();
-            book.setZip(user.getZipcode());
-            book.setUser(user);
-            bookDao.save(book);
-            return "redirect:";
-        }
-        //leaving redirect empty, redirect to the same controller's index method.
-        return "redirect:/user/login";
+        String email = (String)session.getAttribute("email");
+        User user  = userService.findUserByEmail(email);
+        book.setZip(user.getZip());
+        book.setUser(user);
+        bookDao.save(book);
+        return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveBookForm(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("id");
-        Optional<User> user1 = userDao.findById(userId);
-        if (user1.isPresent()) {
-            User user = user1.get();
-            Iterable<User> books = user.getBooks();
-            model.addAttribute("books", books);
-            model.addAttribute("title", "Remove Books");
-            return "book/remove";
-        }
-        return "redirect:/user/login";
+        String email = (String)session.getAttribute("email");
+        User user  = userService.findUserByEmail(email);
+        Iterable<User> books = user.getBooks();
+        model.addAttribute("books", books);
+        model.addAttribute("title", "Remove Books");
+        return "book/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
@@ -127,8 +112,6 @@ public class BooksController {
 
     @RequestMapping(value = "edit/{bookId}", method = RequestMethod.GET)
     public String displayEditForm(@PathVariable int bookId, Model model) {
-        //Book book = BookData.getById(bookId);
-
         Optional<Book> book1 = bookDao.findById(bookId);
         if (book1.isPresent()) {
             Book book = book1.get();
