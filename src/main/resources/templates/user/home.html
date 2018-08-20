@@ -3,9 +3,9 @@
 <head th:replace="fragments :: head"></head>
 
 <a href="/book/add">Add Book |</a>
-<a href="/book/remove">Remove Book</a>
-<a href="/user/logout/">logout</a>
-
+<a href="/book/remove">Remove Book | </a>
+<a href="/search"> Find Books |</a>
+<a href="/logout">logout</a>
 
 <body class="container">
     <h1 th:text="${title}"></h1>
@@ -14,7 +14,6 @@
     <span th:utext="${userName}"></span>
     <span th:utext="${adminMessage}"></span>
 
-    <a href="/logout/">logout</a>
     <p th:unless="${books} and ${books.size()}"> No Books :(</p>
 
     <table class="table">
@@ -25,10 +24,5 @@
             <td th:text="${book.price}">price</a></td>
         </tr>
     </table>
-
-
-
-
-
     </body>
-</html>>
+</html>

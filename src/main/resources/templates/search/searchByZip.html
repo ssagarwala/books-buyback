@@ -11,7 +11,7 @@
 <a href="/book/add">Add Book |</a>
 <a href="/book/remove">Remove Book | </a>
 <a href="/search"> Find Books By Zip |</a>
-<a href="/user/logout/">logout</a>
+<a href="/logout">logout</a>
 <form method="post"  style="max-width:600px;" >
 
     <div class="form-group">
@@ -34,7 +34,7 @@
             <td th:text="${book.name}">Name</td>
             <td th:text="${book.author}">Author</td>
             <td th:text="${book.price}">Price</td>
-            <td th:text="${book.user.username}">Book Seller</td>
+            <td th:text="${book.user.name}">Book Seller</td>
         </tr>
     </table>
 

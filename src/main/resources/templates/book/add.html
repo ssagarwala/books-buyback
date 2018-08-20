@@ -6,7 +6,10 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 
-<a href="../../user/logout">logout</a>
+
+<a href="/book/remove">Remove Book | </a>
+<a href="/search"> Find Books |</a>
+<a href="/logout">logout</a>
 
 
 <form method="post" action="add" style="max-width:600px;" th:object="${book}">

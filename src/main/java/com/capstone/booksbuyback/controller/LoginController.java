@@ -90,6 +90,7 @@ public class LoginController {
         modelAndView.addObject("books", books);
         HttpSession session = request.getSession();
         session.setAttribute("email", user.getEmail());
+        session.setAttribute("zip",user.getZip());
         modelAndView.setViewName("user/home");
          //modelAndView.setViewName("/book");
         /************/
