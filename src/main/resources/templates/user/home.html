@@ -5,9 +5,11 @@
 <a href="/book/add">Add Book |</a>
 <a href="/book/remove">Remove Book | </a>
 <a href="/search"> Find Books |</a>
+<a href="/message">Messages</a>
 <a href="/logout">logout</a>
 
 <body class="container">
+
     <h1 th:text="${title}"></h1>
 
     <nav th:replace="fragments :: navigation"></nav>
@@ -17,10 +19,16 @@
     <p th:unless="${books} and ${books.size()}"> No Books :(</p>
 
     <table class="table">
+        <tr>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Seller</th>
+            <th>Price</th>
+        </tr>
         <tr th:each="book : ${books}">
-            <td th:text="${book.name}">Key</td>
-            <td th:text="${book.author}">Value</td>
-            <!--<td><a th:href="@{'/book/edit/' + ${book.bookId}}">edit</a></td>-->
+            <td th:text="${book.name}">Name</td>
+            <td th:text="${book.author}">Author</td>
+            <td th:text="${book.user.name}">Seller</td>
             <td th:text="${book.price}">price</a></td>
         </tr>
     </table>

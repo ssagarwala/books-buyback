@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"> </head>
+<body class="container">
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+
+
+<a href="/book/remove">Remove Book | </a>
+<a href="/search"> Find Books |</a>
+<a href="/logout">logout</a>
+
+
+<form method="post" action="add" style="max-width:600px;" th:object="${message}">
+    <div class="form-group">
+        <label th:for="seller">To Seller</label>
+        <input class="form-control" th:field="*{toUser.name}"/>
+        <span th:errors="*{toUser.name}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label th:for="buyer">From Buyer</label>
+        <input class="form-control" th:field="*{fromUser}"/>
+        <span th:errors="*{fromUser}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="title">Title</label>
+        <input class="form-control" th:field="*{title}"/>
+        <span th:errors="*{title}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="book">Book</label>
+        <input class="form-control" th:field="${book.name}"/>
+        <span th:errors="${book.name}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="messageBody">Message Body</label>
+        <input class="form-control" th:field="*{messageBody}" />
+        <span th:errors="*{messageBody}" class="error"></span>
+    </div>
+
+    <input type="submit" value="Add Message" />
+</form>
+
+</body>
+</html>

@@ -66,13 +66,15 @@ public class LoginController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
+            modelAndView.addObject("zips",zipDao.findAll());
             modelAndView.setViewName("registration");
         } else {
             user.setZip(zip);
             userService.saveUser(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("zips",zipDao.findAll());
             modelAndView.addObject("templates/user", new User());
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("/login");
 
         }
         return modelAndView;
@@ -83,6 +85,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("title", "Capstone Books4Cash in your zip");
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("Books","You Listed Books for sale");
         /****changed ***/

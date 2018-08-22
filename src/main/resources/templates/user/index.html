@@ -8,12 +8,16 @@
 <a href="/logout">logout</a>
 <p th:unless="${books} and ${books.size()}"> No Books :(</p>
 
+<!-- books not listed by the logged in user -->
 <table class="table">
     <tr th:each="book : ${books}">
-        <td th:text="${book.name}">Key</td>
-        <td th:text="${book.author}">Value</td>
-        <!--<td><a th:href="@{'/book/edit/' + ${book.bookId}}">edit</a></td>-->
-        <td th:text="${book.price}">price</a></td>
+        <td th:text="${book.name}">Book name</td>
+        <td th:text="${book.author}">Book author</td>
+        <td th:text="${book.price}">Book price</td>
+        <td th:text="${book.user.name}">Book Seller </td>
+       <!-- <td><a th:href="@{'/message/add/' + ${book.user.id}}">Contact Seller</a></td>
+        <td th:text="${book.user.name}">Book Seller </td>-->
+        <td><a th:href="@{'/message/add/' + ${book.user.id}}">Contact Seller </a></td>
     </tr>
 </table>
 

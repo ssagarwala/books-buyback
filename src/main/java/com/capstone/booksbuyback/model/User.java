@@ -47,6 +47,10 @@ public class User {
     @JoinColumn(name="user_id")
     private List<Book> books = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "msg_id")
+    private List<Message> messages = new ArrayList<>();
+
     public List getBooks(){
         return books;
     }
@@ -109,5 +113,8 @@ public class User {
     public Zip getZip() { return zip; }
 
     public void setZip(Zip zip) {this.zip = zip;}
+
+    public List<Message> getMessages() {return messages;}
+
 
 }

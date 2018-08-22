@@ -43,7 +43,8 @@ public class ZipController {
         else {
             zipDao.save(zip);
             model.addAttribute("zipId", zip.getId());
-            return "redirect:/user/add";
+            //return "redirect:/user/add";
+            return "redirect:/registration";
         }
     }
 }

@@ -15,15 +15,13 @@
 <a href="/search"> Find Books |</a>
 <a href="/logout">logout</a>
 
-<p th:unless="${books} and ${books.size()}"> No Books :(</p>
+<p th:unless="${messages} and ${messages.size()}"> No Messages :(</p>
 
 <table class="table">
-<tr th:each="book : ${books}">
-    <td th:text="${book.name}">Name</td>
-    <td th:text="${book.author}">Author</td>
-    <td th:text="${book.price}">Price</td>
-    <td><a th:href="@{'/book/edit/' + ${book.id}}">edit</a></td>
-
+<tr th:each="message : ${messages}">
+    <td th:text="${message.title}">title</td>
+    <td th:text="${message.fromUser}">from User</td>
+    <td><a th:href="@{'/message/read/' + ${message.id}}">Read</a></td>
 </tr>
 </table>
 

@@ -12,6 +12,9 @@
 <a href="/book/remove">Remove Book | </a>
 <a href="/search"> Find Books By Zip |</a>
 <a href="/logout">logout</a>
+
+<div th:text="Hello + ${name}"></div>
+
 <form method="post"  style="max-width:600px;" >
 
     <div class="form-group">
@@ -35,6 +38,7 @@
             <td th:text="${book.author}">Author</td>
             <td th:text="${book.price}">Price</td>
             <td th:text="${book.user.name}">Book Seller</td>
+            <td><a th:href="@{'/message/add/' + ${book.id}}">Contact Seller</a></td>
         </tr>
     </table>
 

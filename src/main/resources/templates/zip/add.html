@@ -8,7 +8,7 @@
 
 <form method="POST"  th:object="${zip}">
     <div class="form-group">
-        <label th:for="name">Name</label>
+        <label th:for="name">Add Zipcode</label>
         <input class="form-control" th:field="*{zipNumber}" />
         <span th:errors="*{zipNumber}" class="error"></span>
     </div>
