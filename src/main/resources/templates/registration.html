@@ -9,6 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body class="container">
+<h1> Sell Books4Cash</h1>
+<h5><i>sell books by Zip or in your University</i></h5>
 <form th:action="@{/}" method="get">
     <button class="btn" type="Submit"> Login </button>
 </form>
@@ -19,7 +21,7 @@
             <form autocomplete="off" action="#" th:action="@{/registration}"
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
-                <h2>Registration Form</h2>
+                <h2>Create Account </h2>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"

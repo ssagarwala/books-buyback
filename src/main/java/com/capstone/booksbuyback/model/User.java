@@ -48,7 +48,7 @@ public class User {
     private List<Book> books = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn(name = "msg_id")
+    @JoinColumn(name="user_id")
     private List<Message> messages = new ArrayList<>();
 
     public List getBooks(){

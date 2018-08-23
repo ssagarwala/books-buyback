@@ -75,12 +75,14 @@ public class MessageController {
 
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
-            User user = userService.findUserByEmail(email);
+            User buyer = userService.findUserByEmail(email);
+            session.setAttribute("sellerEmail",seller.getEmail());
 
-            model.addAttribute("book",book);
             Message message = new Message();
-            message.setFromUser(user.getEmail());
-            message.setToUser(seller);
+
+            model.addAttribute("book",book.getName());
+            model.addAttribute("seller",seller.getEmail());
+            model.addAttribute("buyer", buyer.getEmail());
             model.addAttribute("message", message);
             return "message/add";
         }
@@ -92,20 +94,22 @@ public class MessageController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddMSgForm(@ModelAttribute @Valid Message msg,
-                                      Errors error,Model model) {
+                                      Errors error,Model model,HttpServletRequest request) {
         if (error.hasErrors()) {
             model.addAttribute("title", "Add Message");
             return "message/add";
         }
 
-        //HttpSession session = request.getSession();
-       // String email = (String)session.getAttribute("email");
-        //User buyer = userService.findUserByEmail(email);
+        HttpSession session = request.getSession();
+        String sellerEmail =(String)session.getAttribute("sellerEmail");
+        User seller = userService.findUserByEmail(sellerEmail);
+        System.out.println("Seller email is "+ sellerEmail);
+        msg.setUser(seller);
 
-        User seller = msg.getToUser();
+        String email = (String) session.getAttribute("email");
+        msg.setFromUser(email);
+
         messageDao.save(msg);
-
         return "redirect:";
     }
-
 }

@@ -3,6 +3,8 @@
 <head th:replace="fragments :: head"></head>
 
 <body class="container">
+<h1> Sell Books4Cash</h1>
+<h5><i>sell books by Zip or in your University</i></h5>
 
 <h1 th:text="${title}">Default Title</h1>
 
@@ -33,6 +35,12 @@
     <p th:unless="${books} and ${books.size()}"> No Books :(</p>
 
     <table class="table">
+        <tr>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Seller</th>
+            <th>Price</th>
+        </tr>
         <tr th:each="book : ${books}">
             <td th:text="${book.name}">Name</td>
             <td th:text="${book.author}">Author</td>

@@ -4,26 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Message {
 
-    public int getId() {
-        return id;
-    }
+    @Id
+    @GeneratedValue
+    private int id;
 
-        @Id
-        @GeneratedValue
-        private int id;
-
-
-    //Date date;
     @ManyToOne
-    private User toUser;
+    private User user;
 
     private String fromUser;
 
@@ -49,20 +40,23 @@ public class Message {
        this.fromUser = fromUser;
     }
 
-
-    public User getToUser() {
-        return toUser;
+    public int getId() {
+        return id;
     }
 
-    public void setToUser(User toUser) {
-        this.toUser = toUser;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getMessageBody() {
         return messageBody;
     }
 
-    public void setMessage(String messageBody) {
+    public void setMessageBody(String messageBody) {
         this.messageBody = messageBody;
     }
 

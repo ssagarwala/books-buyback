@@ -25,7 +25,7 @@ body{
     text-align:center;
 }
 a{
-    color:#FFFE0;
+    color:#ced4da;
     }
  .btn{
      display: block;
@@ -40,8 +40,14 @@ a{
  margin-right:auto;
  }
  .registration{
-  width:80%;
+  width:100%;
   }
   .login{
   width:50%;
   }
+  .container h1,.container h2{
+  color:#dff0d8;
+  }
+   .container h5 i{
+    color:white;
+    }

@@ -12,13 +12,15 @@
 </head>
 
 <body class="container">
+<h1> Sell Books4Cash</h1>
+<h5><i>sell books by Zip or in your University</i></h5>
 <form th:action="@{/registration}" method="get">
     <button class="btn" type="Submit">Create Account</button>
 </form>
 
 <div class="login" >
     <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" th:text="Welcome"></h3>
+        <h2>User Login</h2>
         <br/>
 
         <input type="text" id="email" name="email"  th:placeholder="Email"
