@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"> </head>
+
+<body class="container">
+<h1> Sell Books4Cash</h1>
+<h5><i>sell books by Zip or in your University</i></h5>
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+<a href="/book/add">Add Book |</a>
+<a href="/book/remove">Remove Book | </a>
+<a href="/search"> Find Books |</a>
+<a href="/message">Messages | </a>
+<a href="/logout">logout</a>
+
+
+<form method="post" action="/message/add" style="max-width:600px;">
+
+    <div>
+        <label for="seller">To Seller:</label>
+        <span th:text="${message.user.name}" id="seller"></span>
+    </div>
+    <div>
+        <label for="title">Title </label>
+        <span th:text="${message.title}" id="title"></span>
+    </div>
+
+    <div>
+        <label for="msg">Message</label>
+        <span th:text="${message.messageBody}" id="msg"></span>
+    </div>
+
+    <input type="hidden" th:value="${message.id}" name="msgId" />
+    <input type="submit" value="Reply " />
+</form>
+
+</body>
+</html>

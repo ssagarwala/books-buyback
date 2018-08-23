@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<a href="/logout">logout</a>
+<p th:unless="${books} and ${books.size()}"> No Books :(</p>
+
+<!-- books not listed by the logged in user -->
+<table class="table">
+    <tr th:each="book : ${books}">
+        <td th:text="${book.name}">Book name</td>
+        <td th:text="${book.author}">Book author</td>
+        <td th:text="${book.price}">Book price</td>
+        <td th:text="${book.user.name}">Book Seller </td>
+       <!-- <td><a th:href="@{'/message/add/' + ${book.user.id}}">Contact Seller</a></td>
+        <td th:text="${book.user.name}">Book Seller </td>-->
+        <td><a th:href="@{'/message/add/' + ${book.user.id}}">Contact Seller </a></td>
+    </tr>
+</table>
+
+</body>
+</html>

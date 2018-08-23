@@ -1,0 +1,53 @@
+body{
+    font-family:sans-serif;
+    background-color:white;
+    color:white;
+    width:50%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:5%;
+    text-align:center;
+    background-image: url("../images/books.jpg");
+    background-repeat: no-repeat;
+    background-position:center center;
+
+}
+.container{
+    margin-top:80px;
+    border:1px solid #898900;
+
+}
+.table{
+    width:80%;
+    margin-top:3%;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+}
+a{
+    color:#ced4da;
+    }
+ .btn{
+     display: block;
+     width: 20%;
+     float:right;
+     color: #000;
+     background-color: #fff;
+     border-color: #fff;
+ }
+ .login,.registration{
+ margin-left:auto;
+ margin-right:auto;
+ }
+ .registration{
+  width:100%;
+  }
+  .login{
+  width:50%;
+  }
+  .container h1,.container h2{
+  color:#dff0d8;
+  }
+   .container h5 i{
+    color:white;
+    }

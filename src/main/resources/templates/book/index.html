@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+    <title> </title>
+
+</head>
+<body class="container">
+<h1> Sell Books4Cash</h1>
+<h5><i>sell books by Zip or in your University</i></h5>
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<a href="/book/add">Add Book |</a>
+<a href="/book/remove">Remove Book | </a>
+<a href="/search"> Find Books |</a>
+<a href="/message">Messages |</a>
+<a href="/logout">logout</a>
+
+<p th:unless="${books} and ${books.size()}"> No Books :(</p>
+
+<table class="table">
+<tr th:each="book : ${books}">
+    <td th:text="${book.name}">Name</td>
+    <td th:text="${book.author}">Author</td>
+    <td th:text="${book.price}">Price</td>
+    <td><a th:href="@{'/book/edit/' + ${book.id}}">edit</a></td>
+
+</tr>
+</table>
+
+</body>
+</html>

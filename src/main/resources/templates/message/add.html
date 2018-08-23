@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"> </head>
+<body class="container">
+<h1> Sell Books4Cash</h1>
+<h5><i>sell books by Zip or in your University</i></h5>
+
+
+<h1 th:text="${title}"></h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+<a href="/book/add">Add Book |</a>
+<a href="/book/remove">Remove Book | </a>
+<a href="/search"> Find Books |</a>
+<a href="/message">Messages |</a>
+<a href="/logout">logout</a>
+
+
+<form method="post" action="../add" style="max-width:600px;" th:object="${message}">
+    <div>
+        <label for="seller">To:</label>
+        <span th:text="${seller}" id="seller"></span>
+    </div>
+    <div>
+        <label for="buyer">From: </label>
+        <span th:text="${buyer}" id="buyer"></span>
+    </div>
+
+    <div>
+        <label th:for="book">Book</label>
+        <span th:text="${book}"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="title">Title</label>
+        <input class="form-control" th:field="*{title}"/>
+        <span th:errors="*{title}" class="error"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label th:for="messageBody">Message Body</label>
+        <!--<input class="form-control" th:field="*{messageBody}" />-->
+        <textarea rows="4" cols="50" th:field="*{messageBody}" >
+        </textarea>
+        <span th:errors="*{messageBody}" class="error"></span>
+    </div>
+
+
+    <input type="submit" value="Add Message" />
+</form>
+
+</body>
+</html>
