@@ -22,15 +22,15 @@
 
     <div class="form-group">
         <label for="msg-field">Message</label>
-        <input class="form-control" type="text" name="message" th:value="${message.message}" id="msg-field"/>
+        <input class="form-control" type="text" name="message" th:value="${message.messageBody}" id="msg-field"/>
     </div>
 
     <div class="form-group">
-        <label for="toUser-field">To User Name</label>
-        <input class="form-control" type="text" name="toUser" th:value="${message.toUser.name}" id="toUser-field"/>
+        <label for="user-field">To User Name</label>
+        <input class="form-control" type="text" name="toUser" th:value="${message.user.name}" id="user-field"/>
     </div>
 
-    <input type="hidden" th:value="${msg.id}" name="msgId" />
+    <input type="hidden" th:value="${message.id}" name="msgId" />
     <input type="submit" value="Reply " />
 </form>
 
