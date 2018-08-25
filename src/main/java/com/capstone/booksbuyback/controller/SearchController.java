@@ -48,7 +48,7 @@ public class SearchController {
     @RequestMapping(value = "", method=RequestMethod.POST)
     public String processSearch(Model model,
                                     @RequestParam int zipId,
-                                    String keyword) {
+                                    String keyword,HttpServletRequest request) {
         Optional<Zip> zip1 = zipDao.findById(zipId);
         if (zip1.isPresent()) {
             Zip zip = zip1.get();
@@ -62,6 +62,10 @@ public class SearchController {
                     booksByKeyword.add(book);
                 }
             }
+            HttpSession session = request.getSession();
+            String email = (String)session.getAttribute("email");
+            User user  = userService.findUserByEmail(email);
+            model.addAttribute("name", user.getName());
             model.addAttribute("books", booksByKeyword);
             model.addAttribute("zips", zipDao.findAll());
             model.addAttribute("title", "Books in zip   :"

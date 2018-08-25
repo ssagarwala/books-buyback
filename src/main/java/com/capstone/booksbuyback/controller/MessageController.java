@@ -41,11 +41,12 @@ public class MessageController {
     @RequestMapping("")
     public String index(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String email = (String)session.getAttribute("email");
-        User user  = userService.findUserByEmail(email);
+        String email = (String) session.getAttribute("email");
+        User user = userService.findUserByEmail(email);
 
         List<Message> messages = user.getMessages();
         model.addAttribute("messages", messages);
+        model.addAttribute("name", user.getName());
         model.addAttribute("title", "Messages For You");
         return "message/index";
     }
@@ -55,6 +56,7 @@ public class MessageController {
         Optional<Message> msg1 = messageDao.findById(msgId);
         if (msg1.isPresent()) {
             Message message = msg1.get();
+            model.addAttribute("name", message.getUser().getName());
             model.addAttribute("message", message);
             model.addAttribute("title", "New Message");
             return "message/read";
@@ -74,10 +76,11 @@ public class MessageController {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
             User buyer = userService.findUserByEmail(email);
-            session.setAttribute("sellerEmail",seller.getEmail());
+            session.setAttribute("sellerEmail", seller.getEmail());
             Message message = new Message();
-            model.addAttribute("book",book.getName());
-            model.addAttribute("seller",seller.getEmail());
+            model.addAttribute("name", buyer.getName());
+            model.addAttribute("book", book.getName());
+            model.addAttribute("seller", seller.getEmail());
             model.addAttribute("buyer", buyer.getEmail());
             model.addAttribute("message", message);
             return "message/add";
@@ -85,27 +88,64 @@ public class MessageController {
         return "message/index";
     }
 
-
-
-
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddMSgForm(@ModelAttribute @Valid Message msg,
-                                      Errors error,Model model,HttpServletRequest request) {
+                                    Errors error, Model model, HttpServletRequest request) {
         if (error.hasErrors()) {
             model.addAttribute("title", "Add Message");
             return "message/add";
         }
 
         HttpSession session = request.getSession();
-        String sellerEmail =(String)session.getAttribute("sellerEmail");
+        String sellerEmail = (String) session.getAttribute("sellerEmail");
         User seller = userService.findUserByEmail(sellerEmail);
-        System.out.println("Seller email is "+ sellerEmail);
+        System.out.println("Seller email is " + sellerEmail);
         msg.setUser(seller);
 
         String email = (String) session.getAttribute("email");
-        msg.setFromUser(email);
+        msg.setSender(email);
 
         messageDao.save(msg);
+        return "redirect:";
+    }
+
+
+    @RequestMapping(value = "reply", method = RequestMethod.GET)
+    public String displayReplyMsgForm(int msgId,
+                                      Model model, HttpServletRequest request) {
+        Optional<Message> msg1 = messageDao.findById(msgId);
+        if (msg1.isPresent()) {
+            Message message = msg1.get();
+
+            Message replyMessage = new Message();
+            String buyer = message.getSender();
+            User userBuyer = userService.findUserByEmail(buyer);
+            User seller = message.getUser();
+
+            replyMessage.setSender(seller.getEmail());
+            replyMessage.setUser(userBuyer);
+            replyMessage.setTitle("RE:" +message.getTitle());
+            replyMessage.setMessageBody("================="+message.getMessageBody());
+            model.addAttribute("name", seller.getName());
+            model.addAttribute("message", replyMessage);
+            model.addAttribute("title", "Reply To Buyer");
+            return "message/reply";
+        }
+        return "message/index";
+    }
+
+    @RequestMapping(value = "replySender", method = RequestMethod.POST)
+    public String processReplyMSgForm(@ModelAttribute @Valid Message message,
+                                      Errors error, Model model) {
+        if (error.hasErrors()) {
+            model.addAttribute("title", "Add Message");
+            return "message/reply";
+        }
+        User reciever = userService.findUserByEmail(message.getUser().getEmail());
+        message.setUser(reciever);
+        System.out.println("-----------"+message.getUser().getEmail());
+        System.out.println("-----------"+ reciever.getId());
+        messageDao.save(message);
         return "redirect:";
     }
 }

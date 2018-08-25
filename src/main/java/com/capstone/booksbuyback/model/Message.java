@@ -16,7 +16,7 @@ public class Message {
     @ManyToOne
     private User user;
 
-    private String fromUser;
+    private String sender;
 
     //@NotNull
     @Size(min=1,message="Msg cannot be empty")
@@ -32,12 +32,12 @@ public class Message {
             this.messageBody= messageBody;
           this.title=title;
     }
-    public String getFromUser() {
-         return fromUser;
+    public String getSender() {
+         return sender;
     }
 
-    public void setFromUser(String fromUser) {
-       this.fromUser = fromUser;
+    public void setSender(String sender) {
+       this.sender = sender;
     }
 
     public int getId() {

@@ -49,6 +49,7 @@ public class BooksController {
         String email = (String)session.getAttribute("email");
         User user  = userService.findUserByEmail(email);
         Iterable<User> books = user.getBooks();
+        model.addAttribute("name", user.getName());
         model.addAttribute("books", books);
         model.addAttribute("title", "My Books");
         return "book/index";
@@ -61,8 +62,7 @@ public class BooksController {
         String email = (String)session.getAttribute("email");
         User user  = userService.findUserByEmail(email);
         model.addAttribute(new Book());
-        //model.addAttribute("userId", user.getId());
-        model.addAttribute("title", "Welcome" + user.getName() + "\n You can now sell books");
+        model.addAttribute("name", user.getName());
         return "book/add";
     }
 
@@ -93,6 +93,7 @@ public class BooksController {
         String email = (String)session.getAttribute("email");
         User user  = userService.findUserByEmail(email);
         Iterable<User> books = user.getBooks();
+        model.addAttribute("name", user.getName());
         model.addAttribute("books", books);
         model.addAttribute("title", "Remove Books");
         return "book/remove";
@@ -111,10 +112,14 @@ public class BooksController {
 
 
     @RequestMapping(value = "edit/{bookId}", method = RequestMethod.GET)
-    public String displayEditForm(@PathVariable int bookId, Model model) {
+    public String displayEditForm(@PathVariable int bookId, Model model, HttpServletRequest request) {
         Optional<Book> book1 = bookDao.findById(bookId);
         if (book1.isPresent()) {
             Book book = book1.get();
+            HttpSession session = request.getSession();
+            String email = (String)session.getAttribute("email");
+            User user  = userService.findUserByEmail(email);
+            model.addAttribute("name", user.getName());
             model.addAttribute("book", book);
             model.addAttribute("title", "Capstone Book Buyback");
             return "book/edit";
@@ -123,12 +128,13 @@ public class BooksController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String processEditForm(int bookId, String name, String author) {
+    public String processEditForm(int bookId, String name, String author,double price) {
         Optional<Book> book1 = bookDao.findById(bookId);
         if (book1.isPresent()) {
             Book book = book1.get();
             book.setName(name);
             book.setAuthor(author);
+            book.setPrice(price);
             bookDao.save(book);
             return "redirect:";
         }

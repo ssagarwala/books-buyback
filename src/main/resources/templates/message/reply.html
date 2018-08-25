@@ -8,34 +8,33 @@
 <a href="/message">Messages</a>
 <a href="/logout">logout</a>
 
+
 <div  class="username" th:text="Hello + ${name}"></div>
 <h1> Sell Books4Cash</h1>
 <h6><i>sell books by Zip or in your University</i></h6>
 <h1 th:text="${title}"></h1>
 
-<form method="post" action="../add" style="max-width:600px;" th:object="${message}">
-    <div class="addMsg">
-        <label for="seller">To:</label>
-        <span th:text="${seller}" id="seller"></span>
+<form method="post"  action="../message/replySender" style="max-width:600px;" th:object="${message}">
+    <div class="reply">
+        <label for="buyer">To:</label>
+        <input class="form-control" th:field="${message.user.email}"/>
+        <span th:errors="${message.user.email}" id="buyer"></span>
     </div>
-    <div class="addMsg">
-        <label for="buyer">From: </label>
-        <span th:text="${buyer}" id="buyer"></span>
-    </div>
-
-    <div class="addMsg">
-        <label th:for="book">Book</label>
-        <span th:text="${book}"></span>
+    <div class="reply">
+        <label for="seller">From: </label>
+        <input class="form-control" th:field="*{sender}"/>
+        <span th:errors="*{sender}" id="seller"></span>
     </div>
 
-    <div class="form-group">
+
+    <div class="reply">
         <label th:for="title">Title</label>
         <input class="form-control" th:field="*{title}"/>
         <span th:errors="*{title}" class="error"></span>
     </div>
 
 
-    <div class="form-group">
+    <div class="reply">
         <label th:for="messageBody">Message Body</label>
         <!--<input class="form-control" th:field="*{messageBody}" />-->
         <textarea col="4" row="50" th:field="*{messageBody}"></textarea>

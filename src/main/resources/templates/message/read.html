@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: head"> </head>
+<head th:replace="fragments :: head">
+<title th:text="${title}"></title>
+</head>
 
 <body class="container">
-<h1> Sell Books4Cash</h1>
-<h5><i>sell books by Zip or in your University</i></h5>
-<h1 th:text="${title}"></h1>
-<nav th:replace="fragments :: navigation"></nav>
-
 <a href="/book/add">Add Book |</a>
 <a href="/book/remove">Remove Book | </a>
 <a href="/search"> Find Books |</a>
-<a href="/message">Messages | </a>
+<a href="/message">Messages</a>
 <a href="/logout">logout</a>
 
 
-<form method="post" action="/message/add" style="max-width:600px;">
+<div  class="username" th:text="Hello+ '  '+ ${name}"></div>
+<h1> Sell Books4Cash</h1>
+<h6><i>sell books by Zip or in your University</i></h6>
+<h1 th:text="${title}"></h1>
 
-    <div>
-        <label for="seller">To Seller:</label>
+
+<form method="get" action="../reply" style="max-width:600px;margin-left:auto;margin-right:auto;">
+
+    <div class="read">
+        <label for="seller">To:</label>
         <span th:text="${message.user.name}" id="seller"></span>
     </div>
-    <div>
+
+    <div class="read">
+    <label for="buyer">From:</label>
+    <span th:text="*{message.sender}" id="buyer"></span>
+    </div>
+
+    <div class="read">
         <label for="title">Title </label>
         <span th:text="${message.title}" id="title"></span>
     </div>
 
-    <div>
+    <div class="read">
         <label for="msg">Message</label>
         <span th:text="${message.messageBody}" id="msg"></span>
     </div>

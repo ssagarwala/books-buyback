@@ -71,6 +71,7 @@ public class LoginController {
         } else {
             user.setZip(zip);
             userService.saveUser(user);
+            modelAndView.addObject("name",user.getName());
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("zips",zipDao.findAll());
             modelAndView.addObject("templates/user", new User());
@@ -86,7 +87,7 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("name", user.getName());
         modelAndView.addObject("Books","You Listed Books for sale");
         /****changed ***/
         Iterable<User> books = user.getBooks();
