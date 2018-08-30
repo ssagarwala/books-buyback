@@ -95,6 +95,7 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute("email", user.getEmail());
         session.setAttribute("zip",user.getZip());
+        modelAndView.addObject("title","My Listed books");
         modelAndView.setViewName("user/home");
          //modelAndView.setViewName("/book");
         /************/

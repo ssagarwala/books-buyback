@@ -51,7 +51,7 @@ public class BooksController {
         Iterable<User> books = user.getBooks();
         model.addAttribute("name", user.getName());
         model.addAttribute("books", books);
-        model.addAttribute("title", "My Books");
+        model.addAttribute("title", "My Listed Books");
         return "book/index";
     }
 

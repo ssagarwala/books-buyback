@@ -38,12 +38,7 @@ a{
 .login,.registration{
          margin-left:auto;
          margin-right:auto;
- }
- .registration{
-     width:100%;
-}
-.login{
-      width:50%;
+         width:50%;
 }
 .container h1,.container h2{
     color:#dff0d8;
@@ -59,3 +54,17 @@ a{
     margin-right: auto;
     margin-top: 15px;
  }
+
+.form-group{
+margin-left:auto;
+margin-right:auto;
+width:80%;
+}
+.zip{
+width:30%;
+margin-left:auto;
+margin-right:auto;}
+
+label .validation-message{
+    color: white;
+}
