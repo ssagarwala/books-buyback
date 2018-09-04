@@ -69,7 +69,7 @@ public class SearchController {
             model.addAttribute("books", booksByKeyword);
             model.addAttribute("zips", zipDao.findAll());
             model.addAttribute("title", "Books in zip   :"
-                    + zip.getZipNumber() + " with Keyword" + keyword);
+                    + zip.getZipNumber() + " with Keyword :" + keyword);
             return "search/searchByZip";
 
         } else {

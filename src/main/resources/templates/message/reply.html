@@ -5,7 +5,7 @@
 <a href="/book/add">Add Book |</a>
 <a href="/book/remove">Remove Book | </a>
 <a href="/search"> Find Books |</a>
-<a href="/message">Messages</a>
+<a href="/message">Messages |</a>
 <a href="/logout">logout</a>
 
 
@@ -14,7 +14,7 @@
 <h6><i>sell books by Zip or in your University</i></h6>
 <h1 th:text="${title}"></h1>
 
-<form method="post"  action="../message/replySender" style="max-width:600px;" th:object="${message}">
+<form method="post"  action="../message/replySender"  th:object="${message}">
     <div class="reply">
         <label for="buyer">To:</label>
         <input class="form-control" th:field="${message.user.email}"/>
@@ -37,7 +37,7 @@
     <div class="reply">
         <label th:for="messageBody">Message Body</label>
         <!--<input class="form-control" th:field="*{messageBody}" />-->
-        <textarea col="4" row="50" th:field="*{messageBody}"></textarea>
+        <textarea col="100" row="100" th:field="*{messageBody}"></textarea>
         <span th:errors="*{messageBody}" class="error"></span>
     </div>
 

@@ -20,11 +20,11 @@
 
             <form autocomplete="off" action="#" th:action="@{/registration}"
                   th:object="${user}" method="post" class="form-horizontal"
-                  role="form">
-                <h2>Registration Form</h2>
+                  role="form" >
+                <h2 style="margin-left:-120px">Registration Form</h2>
 
 
-                <div class="form-group" style="width:50%;float: left;margin-bottom:10px;
+                <div class="form-group" style="width:40%;float: left;margin-bottom:10px;
         ">
                     <label style="color:white" th:for="zip">Zips</label>
                     <select name="zipId">
@@ -32,7 +32,7 @@
                                 selected th:text="${zip.zipNumber}"
                                 th:value="${zip.id}"></option>
                     </select>
-                </div> <a style="width:10%;float: left;" href="../zip/add/">Add Zip</a>
+                </div> <a style="width:20%;float:left;" href="../zip/add/">Add Zip</a>
                <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
